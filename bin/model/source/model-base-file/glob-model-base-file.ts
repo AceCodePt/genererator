@@ -4,10 +4,13 @@ import {
 	ModelBaseFilesNotFoundException,
 	ModelBaseFilesParseException,
 } from "./exceptions";
-import { IModelBaseFileCollectionSource as IModelBaseFileCollectionSource } from "./model-base-file-path-collection.interface";
+import { IModelBaseFileCollectionSource as IModelBaseFileCollectionSource } from "./model-base-file-collection.interface";
 import { ModelBaseFileCollection, modelBaseFileCollectionParser, ModelBaseFileCollectionInput } from "./types";
 
-export class GlobModelBaseFilePathCollectionSource implements IModelBaseFileCollectionSource {
+/**
+ * This class will return an array of paths to files in the dir
+ */
+export class GlobModelBaseFileCollectionSource implements IModelBaseFileCollectionSource {
 	constructor(private readonly glob: typeof GlobPromise) {}
 	async ask({ fatherAssetDir: cwd, modelType }: ModelBaseFileCollectionInput): Promise<ModelBaseFileCollection> {
 		const globPattern = `/**/assets/${modelType}/@(*.*)`;
