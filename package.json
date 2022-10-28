@@ -25,6 +25,7 @@
         "clear": "^0.1.0",
         "figlet": "^1.5.2",
         "glob": "^8.0.3",
+        "glob-promise": "^5.0.0",
         "inquirer": "^9.1.4",
         "lodash.camelcase": "^4.3.0",
         "lodash.kebabcase": "^4.1.1",
