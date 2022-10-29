@@ -11,11 +11,7 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "types": ["@types/node"],
-        "paths": {
-            "@source": ["./model/source/index"],
-            "@target": ["./model/target/index"],
-        }
-    }, 
+   }, 
     "include": [
         "./bin/**/*.ts"
     ],  
