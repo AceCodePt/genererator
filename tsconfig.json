@@ -5,6 +5,7 @@
         "target": "esnext",
         "moduleResolution": "node",
         "baseUrl": "./bin",
+        "outDir": "./dist",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "emitDecoratorMetadata": true,
@@ -14,5 +15,16 @@
             "@source": ["./model/source/index"],
             "@target": ["./model/target/index"],
         }
+    }, 
+    "include": [
+        "./bin/**/*.ts"
+    ],  
+    "tsc-alias": {
+        "verbose": false,
+        "resolveFullPaths": true 
+    },
+    "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node"
     }
 }
