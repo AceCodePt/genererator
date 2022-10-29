@@ -7,7 +7,7 @@ export class GlobModelFolderCollectionSource implements IModelFolderCollectionSo
 	constructor(private readonly glob: typeof GlobPromise) {}
 	async ask({ fatherAssetDir: cwd }: ModelFoldersInput): Promise<ModelFolderCollection> {
 		// Search directly under the asset folder the folders
-		const data: unknown = await this.glob("/**/assets/!(*.*)", { cwd }).catch((e) => {
+		const data: unknown = await this.glob("**/assets/*/", { absolute: true, cwd }).catch((e) => {
 			throw new ModelFoldersFailedException(`Failed to retrieve the model folders in dir ${cwd} because of ${e}`);
 		});
 
