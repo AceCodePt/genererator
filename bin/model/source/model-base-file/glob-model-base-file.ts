@@ -13,9 +13,9 @@ import { ModelBaseFileCollection, modelBaseFileCollectionParser, ModelBaseFileCo
 export class GlobModelBaseFileCollectionSource implements IModelBaseFileCollectionSource {
 	constructor(private readonly glob: typeof GlobPromise) {}
 	async ask({ fatherAssetDir: cwd, modelType }: ModelBaseFileCollectionInput): Promise<ModelBaseFileCollection> {
-		const globPattern = `/**/assets/${modelType}/@(*.*)`;
+		const globPattern = `**/assets/${modelType}/*`;
 		// Search directly under model type for files
-		const data: unknown = await this.glob(globPattern, { cwd }).catch((e) => {
+		const data: unknown = await this.glob(globPattern, { cwd, absolute: true, nodir: true }).catch((e) => {
 			throw new ModelBaseFilesFailedException(
 				`Failed to retrieve the model base files from glob ${globPattern} in dir ${cwd} because of ${e}`,
 			);
