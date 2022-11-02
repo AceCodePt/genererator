@@ -2,10 +2,10 @@ import inquirer from "inquirer";
 import { IFolderCollectionOfFolderSource } from "../../source";
 import { IPathToNameValue } from "../../transformer";
 import { ModelKindPathFailedException, ModelKindPathParseException } from "./exceptions";
-import { IModelKindInput } from "./model-kind.interface";
+import { IModelKindInput } from "./model-kind-path.interface";
 import { ModelKindPath, ModelKindPathParameter, modelKindPathParser } from "./types";
 
-export class InquirerModelName implements IModelKindInput {
+export class InquirerModelKindPath implements IModelKindInput {
 	constructor(
 		private readonly folderCollectionOfFolder: IFolderCollectionOfFolderSource,
 		private readonly pathToNameValueTransformer: IPathToNameValue,
