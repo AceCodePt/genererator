@@ -1,5 +1,4 @@
 import inquirer from "inquirer";
-import kebabCase from "lodash.kebabcase";
 import { IFolderCollectionOfFolderSource } from "../../source";
 import { IPathToNameValue } from "../../transformer";
 import { ModelKindPathFailedException, ModelKindPathParseException } from "./exceptions";
