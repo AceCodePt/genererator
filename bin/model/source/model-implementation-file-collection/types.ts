@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 export type ModelImplementationFileCollectionInput = {
-	fatherAssetDir: string;
-	modelType: string;
+	cwd: string;
 };
 
 // check that the path doesn't contain dot and then transform from full path to folder

@@ -9,11 +9,8 @@ import {
 
 export class GlobModelImplementationFileCollectionSource implements IModelImplementationFileCollection {
 	constructor(private readonly glob: typeof GlobPromise) {}
-	async ask({
-		fatherAssetDir: cwd,
-		modelType,
-	}: ModelImplementationFileCollectionInput): Promise<ModelImplementationFileCollection> {
-		const data: unknown = await this.glob(`**/assets/${modelType}/name/*`, {
+	async ask({ cwd }: ModelImplementationFileCollectionInput): Promise<ModelImplementationFileCollection> {
+		const data: unknown = await this.glob(`*`, {
 			cwd,
 			absolute: true,
 			nodir: true,
