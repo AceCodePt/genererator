@@ -23,7 +23,7 @@ export class InquirerModelKindTypePathInput implements IModelKindTypePathInput {
 			.prompt({
 				name,
 				type: "list",
-				message: "What type would you want?",
+				message: "What model kind would you want?",
 				choices: modelNameValueArray,
 			})
 			.catch((e) => {
