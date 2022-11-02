@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+import path from "path";
 import { IFilePathCollectionOfFolderSource } from "../../source";
 import { IPathToNameValue } from "../../transformer";
 import { ModelKindTypePathFailedException, ModelKindTypePathParseException } from "./exceptions";
@@ -12,7 +13,10 @@ export class InquirerModelKindTypePathInput implements IModelKindTypePathInput {
 	) {}
 
 	async run({ modelKindPath }: ModelKindTypeParameter): Promise<ModelKindTypePath> {
-		const modelTypesFolders = await this.fileCollectioOfFolderSource.ask({ dir: modelKindPath });
+		const innerModelKindPath = path.resolve(modelKindPath, "./name");
+		const modelTypesFolders = await this.fileCollectioOfFolderSource
+			.ask({ dir: innerModelKindPath })
+			.then((paths) => paths.filter((path) => path.includes("-name")));
 		const modelNameValueArray = this.pathToNameValueTransformer.transform(modelTypesFolders);
 		const name = `modelKindType`;
 		const result = await inquirer
