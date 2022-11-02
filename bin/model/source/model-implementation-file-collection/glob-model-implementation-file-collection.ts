@@ -10,7 +10,8 @@ import {
 export class GlobModelImplementationFileCollectionSource implements IModelImplementationFileCollection {
 	constructor(private readonly glob: typeof GlobPromise) {}
 	async ask({ cwd }: ModelImplementationFileCollectionInput): Promise<ModelImplementationFileCollection> {
-		const data: unknown = await this.glob(`*`, {
+		const globQuery = "name/*";
+		const data: unknown = await this.glob(globQuery, {
 			cwd,
 			absolute: true,
 			nodir: true,
@@ -27,7 +28,9 @@ export class GlobModelImplementationFileCollectionSource implements IModelImplem
 		});
 
 		if (!implementaionFiles.length) {
-			throw new ModelFoldersNotFoundException(`Couldn't find any model implementation files in the dir ${cwd}`);
+			throw new ModelFoldersNotFoundException(
+				`Couldn't find any model implementation files in the dir ${cwd} and glob ${globQuery}`,
+			);
 		}
 
 		return implementaionFiles;
