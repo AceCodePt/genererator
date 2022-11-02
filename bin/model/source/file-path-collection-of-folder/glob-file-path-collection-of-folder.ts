@@ -4,7 +4,7 @@ import {
 	FilePathCollectionOfFolderFailedException,
 	FilePathCollectionOfFolderParseException,
 } from "./exceptions";
-import { IFilePathCollectionOfFolderSource as IFilePathCollectionOfFolderSource } from "./file-path-collection-of-folder-source.interface";
+import { IFilePathCollectionOfFolderSource } from "./file-path-collection-of-folder-source.interface";
 import { FilePathCollectionOfFolder, filePathCollectionOfFolderParser, FilePathCollectionOfFolderInput } from "./types";
 
 export class GlobFilePathCollectionOfFolderSource implements IFilePathCollectionOfFolderSource {
