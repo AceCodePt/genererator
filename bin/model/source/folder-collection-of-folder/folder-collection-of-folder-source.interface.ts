@@ -1,5 +1,5 @@
 import { ISource } from "../source.interface";
-import { folderCollectionOfFolder, FolderCollectionOfFolderInput } from "./types";
+import { FolderCollectionOfFolder, FolderCollectionOfFolderInput } from "./types";
 
 export interface IFolderCollectionOfFolderSource
-	extends ISource<Promise<folderCollectionOfFolder>, FolderCollectionOfFolderInput> {}
+	extends ISource<Promise<FolderCollectionOfFolder>, FolderCollectionOfFolderInput> {}

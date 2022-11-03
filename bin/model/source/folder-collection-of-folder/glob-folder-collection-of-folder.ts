@@ -5,11 +5,11 @@ import {
 	FolderCollectionOfFolderParseException,
 } from "./exceptions";
 import { IFolderCollectionOfFolderSource as IFolderCollectionOfFolderSource } from "./folder-collection-of-folder-source.interface";
-import { folderCollectionOfFolder, folderCollectionOfFolderParser, FolderCollectionOfFolderInput } from "./types";
+import { FolderCollectionOfFolder, folderCollectionOfFolderParser, FolderCollectionOfFolderInput } from "./types";
 
 export class GlobFolderCollectionOfFolderSource implements IFolderCollectionOfFolderSource {
 	constructor(private readonly glob: typeof GlobPromise) {}
-	async ask({ dir }: FolderCollectionOfFolderInput): Promise<folderCollectionOfFolder> {
+	async ask({ dir }: FolderCollectionOfFolderInput): Promise<FolderCollectionOfFolder> {
 		// Search directly under the asset folder the folders
 		const globQuery = "*/";
 		const data: unknown = await this.glob(globQuery, { absolute: true, cwd: dir }).catch((e) => {

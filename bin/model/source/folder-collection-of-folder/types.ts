@@ -9,4 +9,4 @@ export const folderOfFolderParser = z.string().regex(/[^.]/g, "contains a dot");
 export type FolderOfFolder = z.infer<typeof folderOfFolderParser>;
 
 export const folderCollectionOfFolderParser = z.array(folderOfFolderParser);
-export type folderCollectionOfFolder = z.infer<typeof folderCollectionOfFolderParser>;
+export type FolderCollectionOfFolder = z.infer<typeof folderCollectionOfFolderParser>;
