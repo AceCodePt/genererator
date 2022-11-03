@@ -16,7 +16,10 @@ export class InquirerModelKindTypePathInput implements IModelKindTypePathInput {
 		const innerModelKindPath = path.resolve(modelKindPath, "./name");
 		const modelTypesFolders = await this.fileCollectioOfFolderSource
 			.ask({ dir: innerModelKindPath })
-			.then((paths) => paths.filter((path) => path.includes("-name")));
+			.then((paths) =>
+				paths.filter((path) => path.includes("-name")).map((path) => path.replace("-name.ts", "")),
+			);
+
 		const modelNameValueArray = this.pathToNameValueTransformer.transform(modelTypesFolders);
 		const name = `modelKindType`;
 		const result = await inquirer
