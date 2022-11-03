@@ -4,5 +4,5 @@ export type FileTextSourceInput = {
 	dir: string;
 };
 
-export const fileTextParser = z.string();
-export type FileText = z.infer<typeof fileTextParser>;
+export const fileTextSourceParser = z.string();
+export type FileTextSource = z.infer<typeof fileTextSourceParser>;
