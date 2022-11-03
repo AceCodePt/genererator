@@ -8,6 +8,7 @@ import path from "path";
 import { argv } from "process";
 import { NativePathToNameValue } from "./model/transformer";
 import { GlobFilePathCollectionOfFolderSource, GlobFolderCollectionOfFolderSource } from "./model/source";
+import { FsFileTextTarget } from "./model/target";
 
 // We say that the first argv is the current working dir unless specified otherwise
 const currDir = path.resolve(process.cwd(), argv[2] ?? "./");
@@ -20,6 +21,7 @@ async function main() {
 	const filePathCollectionOfFolder = new GlobFilePathCollectionOfFolderSource(glob);
 	const pathToNameValue = new NativePathToNameValue();
 	const assetPath = path.resolve(scriptPath, "./assets");
+	const fileTextTarget = new FsFileTextTarget();
 
 	// Get the model types folders
 	const modelTypesFolders = await folderCollectionOfFolder.ask({ dir: assetPath });
@@ -33,6 +35,5 @@ async function main() {
 		dir: path.resolve(modelKindPath, "./name"),
 	});
 	const modelKindTypePath = await new InquirerModelKindTypePathInput(pathToNameValue).run(modelKindTypesFiles);
-	console.log(modelKindPath, selectedName, modelKindTypePath);
 }
 main();
