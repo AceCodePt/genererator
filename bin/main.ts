@@ -20,13 +20,19 @@ async function main() {
 	const filePathCollectionOfFolder = new GlobFilePathCollectionOfFolderSource(glob);
 	const pathToNameValue = new NativePathToNameValue();
 	const assetPath = path.resolve(scriptPath, "./assets");
-	const modelKindPath = await new InquirerModelKindPath(folderCollectionOfFolder, pathToNameValue).run({
-		assetPath,
-	});
+
+	// Get the model types folders
+	const modelTypesFolders = await folderCollectionOfFolder.ask({ dir: assetPath });
+	const modelKindPath = await new InquirerModelKindPath(pathToNameValue).run(modelTypesFolders);
+
+	//
 	const selectedName = await new InquirerModelName().run();
-	const modelKindTypePath = await new InquirerModelKindTypePathInput(filePathCollectionOfFolder, pathToNameValue).run(
-		{ modelKindPath },
-	);
+
+	// Get from the model kind path the file in the path
+	const modelKindTypesFiles = await filePathCollectionOfFolder.ask({
+		dir: path.resolve(modelKindPath, "./name"),
+	});
+	const modelKindTypePath = await new InquirerModelKindTypePathInput(pathToNameValue).run(modelKindTypesFiles);
 	console.log(modelKindPath, selectedName, modelKindTypePath);
 }
 main();
