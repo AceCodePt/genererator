@@ -7,18 +7,12 @@ import { IModelKindTypePathInput } from "./model-kind-type-path.interface";
 import { ModelKindTypePath, ModelKindTypeParameter, modelKindTypePathParser } from "./types";
 
 export class InquirerModelKindTypePathInput implements IModelKindTypePathInput {
-	constructor(
-		private readonly fileCollectioOfFolderSource: IFilePathCollectionOfFolderSource,
-		private readonly pathToNameValueTransformer: IPathToNameValue,
-	) {}
+	constructor(private readonly pathToNameValueTransformer: IPathToNameValue) {}
 
-	async run({ modelKindPath }: ModelKindTypeParameter): Promise<ModelKindTypePath> {
-		const innerModelKindPath = path.resolve(modelKindPath, "./name");
-		const modelTypesFolders = await this.fileCollectioOfFolderSource
-			.ask({ dir: innerModelKindPath })
-			.then((paths) =>
-				paths.filter((path) => path.includes("-name")).map((path) => path.replace("-name.ts", "")),
-			);
+	async run(modelTypesFolders: ModelKindTypeParameter): Promise<ModelKindTypePath> {
+		modelTypesFolders = modelTypesFolders
+			.filter((path) => path.includes("-name"))
+			.map((path) => path.replace("-name.ts", ""));
 
 		const modelNameValueArray = this.pathToNameValueTransformer.transform(modelTypesFolders);
 		const name = `modelKindType`;
