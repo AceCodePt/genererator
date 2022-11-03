@@ -6,13 +6,9 @@ import { IModelKindInput } from "./model-kind-path.interface";
 import { ModelKindPath, ModelKindPathParameter, modelKindPathParser } from "./types";
 
 export class InquirerModelKindPath implements IModelKindInput {
-	constructor(
-		private readonly folderCollectionOfFolder: IFolderCollectionOfFolderSource,
-		private readonly pathToNameValueTransformer: IPathToNameValue,
-	) {}
+	constructor(private readonly pathToNameValueTransformer: IPathToNameValue) {}
 
-	async run({ assetPath }: ModelKindPathParameter): Promise<ModelKindPath> {
-		const modelTypesFolders = await this.folderCollectionOfFolder.ask({ dir: assetPath });
+	async run(modelTypesFolders: ModelKindPathParameter): Promise<ModelKindPath> {
 		const modelNameValueArray = this.pathToNameValueTransformer.transform(modelTypesFolders);
 		const name = `modelPath`;
 		const result = await inquirer
