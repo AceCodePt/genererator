@@ -1,3 +1,4 @@
+import { existsSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { FileTextNotifyExceptions } from "./exceptions";
@@ -6,6 +7,9 @@ import { FileTextTargetParameters } from "./types";
 
 export class FsFileTextTarget implements IFileTextTarget {
 	async notify({ filePath, fileContent }: FileTextTargetParameters): Promise<void> {
+		if (existsSync(filePath)) {
+			return;
+		}
 		// Get the dir of a the file
 		const passedPath = path.dirname(filePath);
 		// make the directory, recursively.
