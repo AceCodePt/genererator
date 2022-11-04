@@ -10,11 +10,12 @@ export class InquirerModelKindTypePathInput implements IModelKindTypePathInput {
 	constructor(private readonly pathToNameValueTransformer: IPathToNameValue) {}
 
 	async run(modelTypesFolders: ModelKindTypeParameter): Promise<ModelKindTypePath> {
-		modelTypesFolders = modelTypesFolders
-			.filter((path) => path.includes("-name"))
-			.map((path) => path.replace("-name.ts", ""));
+		modelTypesFolders = modelTypesFolders.filter((path) => path.includes("-name"));
 
 		const modelNameValueArray = this.pathToNameValueTransformer.transform(modelTypesFolders);
+		modelNameValueArray.forEach((obj) => {
+			obj.name = obj.name.replace("-name.ts", "");
+		});
 		const name = `modelKindType`;
 		const result = await inquirer
 			.prompt({
