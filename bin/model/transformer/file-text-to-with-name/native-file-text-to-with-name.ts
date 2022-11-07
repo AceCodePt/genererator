@@ -6,7 +6,7 @@ import { FileTextReplacedName, FileTextToWithNameParametrs } from "./types";
 export class NativeFileTextToWithName implements IFileTextToWithNameTransformer {
 	transform({ fileText, findText, replaceTextWith }: FileTextToWithNameParametrs): FileTextReplacedName {
 		return fileText
-			.replaceAll(findText + " ", replaceTextWith)
+			.replaceAll(new RegExp(`${findText}([^A-Za-z])`, "g"), replaceTextWith + "$1")
 			.replaceAll(camelCase(findText), camelCase(replaceTextWith))
 			.replaceAll(upperFirst(camelCase(findText)), upperFirst(camelCase(replaceTextWith)));
 	}
