@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 import chalk from "chalk";
 import clear from "clear";
 import figlet from "figlet";
@@ -21,6 +21,7 @@ const scriptPath = path.resolve(argv[1], "../../");
 const assetPath = path.resolve(scriptPath, "./assets");
 clear();
 console.log(chalk.green(figlet.textSync("generator", { horizontalLayout: "full" })));
+console.log(projectDir, scriptPath);
 
 async function main() {
 	const folderCollectionOfFolder = new GlobFolderCollectionOfFolderSource(glob);
@@ -101,5 +102,6 @@ async function main() {
 			await fileTextTarget.notify({ filePath: projectFilePath, fileContent });
 		}),
 	);
+	process.exit();
 }
 main();

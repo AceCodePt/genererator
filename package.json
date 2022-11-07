@@ -6,10 +6,10 @@
         "clean": "rimraf dist",
         "build": "npm run clean && tsc",
         "dev": "ts-node ./bin/main.ts ./proj-ex",
-        "start": "node ./dist/main.js"
+        "start": "ts-node ./bin/main.ts"
     },
     "bin": {
-        "gen": "./dist/main.js"
+        "gen": "./bin/main.ts"
     },
     "devDependencies": {
         "@types/clear": "^0.1.2",
