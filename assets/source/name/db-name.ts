@@ -1,11 +1,11 @@
 import { IDbPool } from "@arborknot/db";
 import { NameFailedException, NameNotFoundException, NameParseException } from "./exceptions";
 import { INameSource } from "./name.interface";
-import { Name, NameInput, nameParser } from "./types";
+import { Name, NameParameters, nameParser } from "./types";
 
 export class DbName implements INameSource {
 	constructor(private readonly db: IDbPool) {}
-	async ask(data: NameInput): Promise<Name> {
+	async ask(data: NameParameters): Promise<Name> {
 		const queryResponse = await this.db
 			.query<Name>(
 				`

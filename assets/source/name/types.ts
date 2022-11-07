@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export type NameInput = {};
+export type NameParameters = {};
 
 export const nameParser = z.object({});
 
