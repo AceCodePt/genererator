@@ -14,6 +14,10 @@ export class InquirerModelName implements IModelNameInput {
 				validate: (input) => input !== "",
 				transformer: (input) => kebabCase(input),
 			})
+			.then((obj) => {
+				obj.modelName = kebabCase(obj.modelName);
+				return obj;
+			})
 			.catch((e) => {
 				throw new ModelNameFailedException(`Failed to input cli the model name because of: ${e}`);
 			});
