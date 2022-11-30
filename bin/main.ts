@@ -14,14 +14,15 @@ import {
 } from "./model/source";
 import { FsFileTextTarget } from "./model/target";
 import { NativeFileTextToWithName } from "./model/transformer";
+import * as url from "url";
 
 // We say that the first argv is the current working dir unless specified otherwise
-const projectDir = path.resolve(process.cwd(), argv[2] ?? "./");
-const scriptPath = path.resolve(argv[1], "../../");
+const projectDir = path.resolve(process.cwd(), argv[2] ?? "./", "./src");
+const scriptPath = path.resolve(url.fileURLToPath(new URL(".", import.meta.url)), "../");
 const assetPath = path.resolve(scriptPath, "./assets");
 clear();
 console.log(chalk.green(figlet.textSync("generator", { horizontalLayout: "full" })));
-console.log(projectDir, scriptPath);
+console.log({ projectDir, scriptPath });
 
 async function main() {
 	const folderCollectionOfFolder = new GlobFolderCollectionOfFolderSource(glob);
@@ -48,8 +49,8 @@ async function main() {
 		}),
 	]);
 	const modelKindTypePath = await new InquirerModelKindTypePathInput(pathToNameValue).run(modelKindTypesFiles);
-	const projectModelPath = await glob("**/model/", { cwd: projectDir, absolute: true }).then(([folder]) =>
-		path.normalize(folder),
+	const projectModelPath = await glob("**/model/", { cwd: projectDir, absolute: true }).then((folders) =>
+		path.normalize(folders.find((folder) => folder.includes("src/model")) ?? folders[0]),
 	);
 
 	// Remove all the files that contain -name
