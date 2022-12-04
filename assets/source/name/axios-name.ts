@@ -12,7 +12,7 @@ export class AxiosName implements INameSource {
 					throw new NameNotFoundException(`Failed to find any axios name. The error presented: ${e}`);
 				} else {
 					throw new NameFailedException(
-						`Failed to identify the axios error of the response. The error presented: ${e}`,
+						`Failed to identify the axios error of name. The error presented: ${e}`,
 					);
 				}
 			} else {
