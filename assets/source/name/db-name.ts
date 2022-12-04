@@ -16,11 +16,11 @@ export class DbName implements INameSource {
 				throw new NameFailedException(`Failed to retrieve name because of: ${e}`);
 			});
 
-		if (!queryResponse.rows[0]) {
+		if (queryResponse.rowCount === 0) {
 			throw new NameNotFoundException(`Failed to find any name`);
 		}
 
-		const name = nameParser.parseAsync(queryResponse.rows[0]).catch((e) => {
+		const name = await nameParser.parseAsync(queryResponse.rows[0]).catch((e) => {
 			throw new NameParseException(`The name received from the DB was malformed because: ${e}`);
 		});
 		return name;
