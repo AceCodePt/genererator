@@ -6,13 +6,13 @@ import { Name, NameParameters, nameParser } from "./types";
 export class FsFileTextSource implements INameSource {
 	async ask(parameters: NameParameters): Promise<Name> {
 		const buffer = await fs.readFile(parameters.dir).catch((e) => {
-			throw new NameFailedException(`Failed to read the file using FS because of: ${e}`);
+			throw new NameFailedException(`Failed to read the file using FS`, { cause: e });
 		});
 		if (buffer.length === 0) {
 			throw new NameNotFoundException(`Failed to receive a file with content in it at dir ${parameters.dir}`);
 		}
 		const fileContent = await nameParser.parseAsync(buffer.toString()).catch((e) => {
-			throw new NameParseException(`The file content received from FS is malformed because of: ${e}`);
+			throw new NameParseException(`The file content received from FS is malformed`, { cause: e });
 		});
 		return fileContent;
 	}

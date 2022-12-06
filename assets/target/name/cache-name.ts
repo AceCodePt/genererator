@@ -7,7 +7,7 @@ export class CacheNameTarget implements INameTarget {
 	constructor(private readonly cache: ICache, private readonly ttl?: number) {}
 	async notify({}: NameTargetInput): Promise<void> {
 		await this.cache.set(key, value, this.ttl).catch((e: Error) => {
-			throw new NameNotifyException(`Failed to update name in cache because of: ${e}`);
+			throw new NameNotifyException(`Failed to update name in cache`, { cause: e });
 		});
 	}
 }

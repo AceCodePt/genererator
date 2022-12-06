@@ -13,15 +13,15 @@ export class DbName implements INameSource {
 				[],
 			)
 			.catch((e) => {
-				throw new NameFailedException(`Failed to retrieve name because of: ${e}`);
+				throw new NameFailedException(`Failed to retrieve name from db`, { cause: e });
 			});
 
 		if (queryResponse.rowCount === 0) {
-			throw new NameNotFoundException(`Failed to find any name`);
+			throw new NameNotFoundException(`Failed to find any name in db`);
 		}
 
 		const name = await nameParser.parseAsync(queryResponse.rows[0]).catch((e) => {
-			throw new NameParseException(`The name received from the DB was malformed because: ${e}`);
+			throw new NameParseException(`The name received from the DB was malformed`, { cause: e });
 		});
 		return name;
 	}

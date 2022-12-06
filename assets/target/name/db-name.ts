@@ -5,7 +5,7 @@ import { NameTargetInput } from "./types";
 
 export class DbNameTarget implements INameTarget {
 	constructor(private readonly db: IDbPool) {}
-	async notify({}: NameTargetInput): Promise<void> {
+	async notify(params: NameTargetInput): Promise<void> {
 		await this.db
 			.query<unknown>(
 				`
@@ -14,7 +14,7 @@ export class DbNameTarget implements INameTarget {
 				[],
 			)
 			.catch((e: Error) => {
-				throw new NameNotifyException(`Failed to update name because of: ${e}`);
+				throw new NameNotifyException(`Failed to update name to db`, { cause: e });
 			});
 	}
 }
